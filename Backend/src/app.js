@@ -5,10 +5,17 @@ const userRouter = require('../src/routes/user.route')
 const user = require('./models/user.model')
 const expressSession = require('express-session')
 const passport = require('passport')
-
+const flash = require('connect-flash')
+const path = require('path')
 
 const app = express();
+
+
+app.use(express.static("public"))
 app.set('view engine' ,'ejs');
+
+
+app.use(flash());
 app.use(expressSession({
     resave:false,
     saveUninitialized:false,
