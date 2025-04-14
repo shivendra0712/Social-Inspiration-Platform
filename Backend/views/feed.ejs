@@ -1,54 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
   <title>feed page</title>
-  
+
 </head>
-<body class="bg-[#FFFFFF] text-white min-h-screen p-6">
-  <div class="max-w-7xl mx-auto">
-    <h1 class="text-2xl md:text-3xl font-bold text-center mb-10">
-       Creative <span class="text-purple-400">Masonry Gallery</span>
-    </h1>
 
-    <!-- Masonry Layout -->
-    <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+<body class="bg-[#FFFFFF]  min-h-screen ">
+  <div class="section1 h-full w-full px-2 md:px-6">
+    <!-- nav -->
+    <div class="nav w-full px-4 md:px-10 py-4  flex justify-between items-center">
+      <h2 class="text-xl font-bold ">DigitalStore</span></h2>
+      <div class="nav_links   hidden md:inline  md:flex md:gap-12 md:items-center md:font-medium text-md">
+        <a class="hover:text-[#e71d36]" href="#">Products</a>
+        <a class="hover:text-[#e71d36]" href="#">Features</a>
+        <a class="hover:text-[#e71d36]" href="#">Membership</a>
+        <a class="hover:text-[#e71d36]" href="#">Blog</a>
+      </div>
+      <div class="userprofile w-14 h-14 bg-black/60 rounded-full">
+        <div id="profile"
+          class="absolute  hidden  w-[90%] sm:w-[60%] md:w-[30%] lg:w-[20%] h-auto bg-black/30 right-4 sm:right-10 lg:right-20 top-[10%] rounded-xl p-4 shadow-lg text-black space-y-4 transition-all duration-300 ease-in-out flex flex-col gap-2">
+
+          <!-- Profile Image + Username -->
+          <div class="flex items-center justify-center space-x-4">
+            <img src="https://i.pravatar.cc/100" alt="Profile"
+              class="w-16 h-16 rounded-full border-2 border-black shadow-md" />
+          </div>
+          <div>
+            <h2 class="text-lg font-semibold text-center"><%= user.username %></h2>
+          </div>
+          <!-- View All Activities Button -->
+          <a  href="http://localhost:3000/profile"><button
+              class="w-full bg-white text-blue-600 font-medium py-2 rounded-lg hover:bg-gray-100 transition">
+              View All Activities
+            </button></a>
+
+          <!-- Logout Button -->
+          <a href="http://localhost:3000/logout"><button class="w-full bg-red-500 text-white font-medium py-2 rounded-lg hover:bg-red-600 transition">
+            Logout
+          </button></a>
+
+        </div>
+      </div>
+
+      <i class=" text-xl font-semibold ri-menu-3-fill md:hidden"></i>
+    </div>
+
+
+
+    <!-- hero-section -->
+
+    <div class=" w-full hero_section flex items-center flex-col mt-[30%] md:mt-24 px-8 md:px-16">
+      <h1 class="text-4xl text-black text-center  md:text-5xl leading-[1.3em] md:w-1/2">
+        Discover the world’s top designers</h1>
+      <div class="flex justify-center">
+        <p class="text-base font-medium text-black/70 text-center my-4 md:w-[70%]  ">Unleash your creativity
+          and
+          capture stunning audio
+          effortlessly from your mobile phone!
+        </p>
+      </div>
       
-      <!-- Card with caption -->
-      <div class="overflow-hidden  ">
-        <img src="https://gallery1.charleskdesigns.com/image/001.jpg" class="w-full object-cover rounded-2xl" alt="Sunset Vibes">
-        <p class="px-3 py-2 text-sm font-medium text-black">Sunset Vibes</p>
-      </div>
+    </div>
 
-      <div class="overflow-hidden  ">
-        <img src="https://gallery1.charleskdesigns.com/image/002.jpg" class="w-full object-cover rounded-2xl" alt="Nature Bliss">
-        <p class="px-3 py-2 text-sm font-medium text-black">Nature Bliss</p>
-      </div>
 
-      <div class="overflow-hidden  ">
-        <img src="https://gallery1.charleskdesigns.com/image/003.jpg" class="w-full object-cover rounded-2xl" alt="Urban Life">
-        <p class="px-3 py-2 text-sm font-medium text-black">Urban Life</p>
-      </div>
+    <div class="max-w-full flex justify-start gap-4 flex-wrap px-12 py-6">
 
-      <!-- More images -->
-      <div class="overflow-hidden  ">
-        <img src="https://source.unsplash.com/random/400x500" class="w-full object-cover rounded-2xl" alt="Random 1">
-        <p class="px-3 py-2 text-sm font-medium text-black">Mountain Trail</p>
-      </div>
+      <% post.forEach(function(post){ %>
+        <div class="rounded-xl shadow-lg w-[100%] md:w-[24%] lg:[20%] bg-black/20 h-min p-2 shrink-1">
+          <img src="/images/uploads/<%=post.image%>" alt="Port Image" class="w-full h-60 rounded-lg shadow-md ">
 
-      <div class="overflow-hidden  ">
-        <img src="https://source.unsplash.com/random/400x600" class="w-full object-cover rounded-2xl" alt="Random 2">
-        <p class="px-3 py-2 text-sm font-medium text-black">Serene Lake</p>
-      </div>
-
-      <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg ">
-        <img src="https://source.unsplash.com/random/400x650" class="w-full object-cover" alt="Random 3">
-        <p class="px-3 py-2 text-sm font-medium text-black">Abstract Colors</p>
-      </div>
+          <p class="">
+            <%= post.postcaption %>
+          </p>
+        </div>
+        <% }) %>
 
     </div>
   </div>
+
+  <script>
+    const userprofile = document.querySelector('.userprofile');
+    const profile = document.querySelector('#profile');
+
+    userprofile.addEventListener('click', () => {
+      profile.classList.toggle('hidden');
+    });
+
+  </script>
+
 </body>
+
 </html>
